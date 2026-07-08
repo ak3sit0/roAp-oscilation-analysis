@@ -34,3 +34,11 @@ csv/
 !figures/HR_diagram_professional.pdf
 !figures/TIC_101624823_periodogram.pdf
 !figures/TIC_101624823_lightcurves.pdf
+
+# Ignore all PNGs by default (avoid committing intermediate/old figure files)
+*.png
+
+# Exceptions: only preview images for the published PDFs
+!figures/HR_diagram_professional.png
+!figures/TIC_101624823_periodogram.png
+!figures/TIC_101624823_lightcurves.png

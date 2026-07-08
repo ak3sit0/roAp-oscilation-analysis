@@ -102,22 +102,37 @@ This generates stellar catalogs, seismic parameters, and publication-quality fig
 After running the analysis, you'll get these publication-quality outputs:
 
 ### 1. **Hertzsprung-Russell Diagram** 📈
-**[View: `figures/HR_diagram_professional.pdf`](figures/HR_diagram_professional.pdf)**
 
 Observed roAp stars (red stars ✱) plotted against evolutionary tracks for masses 1.5–2.5 M☉. Error bars from TIC and Gaia DR3 catalogs show measurement precision. All targets cluster on the main sequence as expected for their masses.
 
-<img src="https://img.shields.io/badge/Type-Publication_Ready-blue" alt="Publication Ready"/>
-<img src="https://img.shields.io/badge/Resolution-300_dpi-brightgreen" alt="300 dpi"/>
+[![HR Diagram](figures/HR_diagram_professional.png)](figures/HR_diagram_professional.pdf)
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Type-Publication_Ready-blue" alt="Publication Ready"/>
+  <img src="https://img.shields.io/badge/Resolution-300_dpi-brightgreen" alt="300 dpi"/>
+  <br>
+  <a href="figures/HR_diagram_professional.pdf"><strong>📥 Download PDF</strong></a>
+</p>
 
 ### 2. **Oscillation Spectrum** 🎵
-**[View: `figures/TIC_101624823_periodogram.pdf`](figures/TIC_101624823_periodogram.pdf)**
 
 Amplitude periodogram showing 12 detected oscillation modes (red peaks, SNR > 4). Dominant frequency at 403 µHz with SNR = 8.2 confirms roAp classification. Secondary modes at regular spacing reveal stellar structure.
 
+[![Periodogram](figures/TIC_101624823_periodogram.png)](figures/TIC_101624823_periodogram.pdf)
+
+<p align="center">
+  <a href="figures/TIC_101624823_periodogram.pdf"><strong>📥 Download PDF</strong></a>
+</p>
+
 ### 3. **Time Series Photometry** 📡
-**[View: `figures/TIC_101624823_lightcurves.pdf`](figures/TIC_101624823_lightcurves.pdf)**
 
 100 days of TESS data demonstrating excellent noise characteristics (~50 ppm) and clear oscillation signals (0.5–5 ppm amplitude). Multiple sectors show consistent, reproducible pulsations.
+
+[![Light Curves](figures/TIC_101624823_lightcurves.png)](figures/TIC_101624823_lightcurves.pdf)
+
+<p align="center">
+  <a href="figures/TIC_101624823_lightcurves.pdf"><strong>📥 Download PDF</strong></a>
+</p>
 
 ### 4. **Analysis Results Table**
 
