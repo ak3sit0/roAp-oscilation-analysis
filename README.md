@@ -257,7 +257,7 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fi
 ## ✉️ Contact
 
 For questions or suggestions:
-- **Email**: jose.angel@email.com
+- **Email**: akejja@estudiantes.fisica.unam.mx
 - **Issues**: [GitHub Issues](https://github.com/yourusername/roap-analysis/issues)
 
 ---

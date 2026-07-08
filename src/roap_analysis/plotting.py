@@ -26,7 +26,7 @@ def set_publication_style():
     plt.rcParams['lines.linewidth'] = 1.5
     plt.rcParams['patch.linewidth'] = 0.5
     plt.rcParams['axes.grid'] = True
-    plt.rcParams['axes.grid.alpha'] = 0.3
+    plt.rcParams['grid.alpha'] = 0.3
     plt.rcParams['axes.axisbelow'] = True
 
 

@@ -101,10 +101,11 @@ def _query_gaia_parallax(tic_id, teff):
     """
     try:
         # Query Gaia DR3 using TIC designation
+        tic_num = tic_id.replace("TIC ", "").strip()
         job = Gaia.launch_job_async(
             f"SELECT TOP 1 parallax, parallax_error, bp_mag, rp_mag, g_mag "
             f"FROM gaiaedr3.gaia_source "
-            f"WHERE designation LIKE '%{tic_id.replace(\"TIC \", \"\").strip()}%'"
+            f"WHERE designation LIKE '%{tic_num}%'"
         )
         gaia_data = job.get_results()
         
