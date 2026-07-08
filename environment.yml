@@ -1,0 +1,19 @@
+name: roap-analysis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy>=1.21
+  - pandas>=1.3
+  - scipy>=1.7
+  - matplotlib>=3.4
+  - jupyter>=1.0
+  - ipython>=8.0
+  - pytest>=7.0
+  - pip>=22.0
+  - pip:
+    - lightkurve>=2.0
+    - astropy>=5.0
+    - astroquery>=0.4.6
+    - gaiaedr3>=0.1

@@ -1,0 +1,28 @@
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+.DS_Store
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
+.idea/
+.vscode/
+
+# Allow important project files, ignore only temp data
+data/
+csv/
+*.tmp
+*.cache
+
+# Keep results and figures - they are important for presentation!
+# results/ and figures/ are tracked
+!results/
+!figures/
