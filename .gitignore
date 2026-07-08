@@ -26,3 +26,11 @@ csv/
 # results/ and figures/ are tracked
 !results/
 !figures/
+
+# Ignore all PDFs by default (avoid accidentally committing large/temp PDFs)
+*.pdf
+
+# Exceptions: only the PDFs referenced in README.md are tracked
+!figures/HR_diagram_professional.pdf
+!figures/TIC_101624823_periodogram.pdf
+!figures/TIC_101624823_lightcurves.pdf
