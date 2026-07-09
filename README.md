@@ -273,10 +273,10 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fi
 
 For questions or suggestions:
 - **Email**: akejja@estudiantes.fisica.unam.mx
-- **Issues**: [GitHub Issues](https://github.com/yourusername/roap-analysis/issues)
+- **Issues**: [GitHub Issues](https://github.com/ak3sit0/roap-analysis/issues)
 
 ---
 
 **Status**: ✅ Production-Ready for Research & Publication
 
-**Last Updated**: April 2024
+**Last Updated**: July 2026
