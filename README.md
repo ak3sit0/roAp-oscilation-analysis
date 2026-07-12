@@ -82,7 +82,7 @@ roAp-Analysis/
 
 ```bash
 # Clone repository
-git clone https://github.com/tu-usuario/roap-analysis.git
+git clone https://github.com/ak3sit0/roap-analysis.git
 cd roap-analysis
 
 # Create environment & install
@@ -270,7 +270,7 @@ If you use this code, please cite:
 
 ```bibtex
 @software{roap_analysis_2024,
-  author = {Jose Angel},
+  author = {Jose Ake},
   title = {roAp-Analysis: Asteroseismic Analysis Framework},
   year = {2024},
   url = {https://github.com/tu-usuario/roap-analysis},
