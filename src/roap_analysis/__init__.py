@@ -10,7 +10,7 @@ References:
 """
 
 __version__ = "1.0.0"
-__author__ = "Jose Angel"
+__author__ = "José Ake"
 
 from .frequency_analysis import estimate_snr, calculate_large_separation, periodogram_analysis
 from .stellar_params import get_star_params_professional

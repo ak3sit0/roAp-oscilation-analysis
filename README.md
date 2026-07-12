@@ -82,8 +82,8 @@ roAp-Analysis/
 
 ```bash
 # Clone repository
-git clone https://github.com/ak3sit0/roap-analysis.git
-cd roap-analysis
+git clone https://github.com/ak3sit0/roAp-oscilation-analysis.git
+cd roAp-oscilation-analysis
 
 # Create environment & install
 conda env create -f environment.yml
@@ -125,10 +125,9 @@ Observed roAp stars plotted against MESA evolutionary tracks (masses 1.5–2.5 M
 
 ### 2. Oscillation Spectrum
 
-Power spectrum from Lomb-Scargle periodogram showing significant peaks detected above SNR > 4 threshold (red peaks). For TIC 101624823: dominant frequency at ~403 µHz with SNR = 8.2. Peak spacing is consistent with large frequency separation (~62 µHz), a characteristic parameter in asteroseismology.
+Power spectrum from Lomb-Scargle periodogram showing significant peaks detected above the SNR > 4 threshold (red peaks). For TIC 101624823 the highest-amplitude peak sits at ~1442 µHz (124.6 d⁻¹); the mean spacing of the significant peaks yields a large frequency separation of Δν ≈ 46 µHz, a characteristic asteroseismic parameter linked to mean stellar density.
 
-[![Periodogram](figures/TIC_101624823_periodogram.png)](fig
-ures/TIC_101624823_periodogram.pdf)
+[![Periodogram](figures/TIC_101624823_periodogram.png)](figures/TIC_101624823_periodogram.pdf)
 
 **[PDF version](figures/TIC_101624823_periodogram.pdf)**
 
@@ -142,16 +141,18 @@ Light curve from TESS showing ~100 days of continuous photometry. TESS noise flo
 
 ### 4. Analysis Results
 
-| TIC ID | ν_max (µHz) | Δν (µHz) | T_eff (K) | log g | Type |
-|--------|-------------|---------|----------|-------|------|
-| 101624823 | 403 | 62 | 8250±75 | 4.15±0.08 | roAp |
-| 165052884 | 387 | 58 | 8120±85 | 4.12±0.09 | roAp |
-| 158271090 | — | — | — | — | roAp |
-| 233200244 | — | — | — | — | roAp |
-| 298052991 | — | — | — | — | roAp |
-| 435263600 | — | — | — | — | roAp |
+| TIC ID | N peaks | ν_dom (µHz) | Δν (µHz) | T_eff (K) | log g |
+|--------|--------:|------------:|---------:|-----------|-------|
+| 101624823 | 544 | 1442 | 45.7 | 6776±132 | 3.83±0.09 |
+| 165052884 | 155 | 2177 | 26.4 | 6898±127 | 4.18±0.08 |
+| 233200244 | 153 | 1437 | 25.9 | 8218±152 | 4.07±0.07 |
+| 158271090 | 147 | 973  | 27.3 | 7387±141 | 3.73±0.09 |
+| 298052991 | 185 | 2291 | 21.8 | 7596±125 | 4.31±0.08 |
+| 435263600 | 164 | 1097 | 24.8 | —         | —         |
 
-**Generated outputs**: `results/stellar_catalog.csv` and `results/analysis_results.csv`
+> `ν_dom` is the highest-amplitude peak in the periodogram (may include low-frequency / rotational signal); `Δν` is the mean spacing of the significant (SNR > 4) peaks. `T_eff` and `log g` are from the TESS Input Catalog. Gaia DR3 parallax/luminosity integration is pending (see roadmap), so those columns are not yet populated.
+
+**Generated outputs**: `results/tables/stellar_catalog.csv` and `results/tables/analysis_results.csv`
 
 ---
 
@@ -269,11 +270,11 @@ We welcome scientific contributions! Please:
 If you use this code, please cite:
 
 ```bibtex
-@software{roap_analysis_2024,
-  author = {Jose Ake},
-  title = {roAp-Analysis: Asteroseismic Analysis Framework},
-  year = {2024},
-  url = {https://github.com/tu-usuario/roap-analysis},
+@software{ake_roap_2026,
+  author  = {Ake, Jos\'e},
+  title   = {roAp-oscilation-analysis: Asteroseismic Analysis Framework for Rapidly Oscillating Ap Stars},
+  year    = {2026},
+  url     = {https://github.com/ak3sit0/roAp-oscilation-analysis},
   version = {1.0.0}
 }
 ```
@@ -290,7 +291,7 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fi
 
 For questions or suggestions:
 - **Email**: akejja@estudiantes.fisica.unam.mx
-- **Issues**: [GitHub Issues](https://github.com/ak3sit0/roap-analysis/issues)
+- **Issues**: [GitHub Issues](https://github.com/ak3sit0/roAp-oscilation-analysis/issues)
 
 ---
 
