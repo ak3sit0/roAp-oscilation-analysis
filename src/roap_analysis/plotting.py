@@ -10,7 +10,7 @@ import matplotlib.patches as mpatches
 from pathlib import Path
 import warnings
 
-from .config import FIGURES_DIR, TRACK_COLOR, TRACK_ALPHA, TEFF_COLOR
+from .config import FIGURES_HR_DIR, FIGURES_PERIODOGRAM_DIR, FIGURES_LC_DIR, TRACK_COLOR, TRACK_ALPHA, TEFF_COLOR
 
 
 def set_publication_style():
@@ -177,7 +177,7 @@ def plot_hr_diagram(teff_list, logg_list, e_teff=None, e_logg=None,
     
     # Save figure
     if output_file:
-        output_path = FIGURES_DIR / output_file
+        output_path = FIGURES_HR_DIR / output_file
         fig.savefig(output_path, dpi=300, bbox_inches='tight', format='pdf')
         print(f"HR diagram saved to {output_path}")
     
@@ -221,8 +221,8 @@ def plot_light_curves(lightcurves, tic_id, output_file=None):
     plt.tight_layout()
     
     if output_file:
-        output_path = FIGURES_DIR / output_file
+        output_path = FIGURES_LC_DIR / output_file
         fig.savefig(output_path, dpi=300, bbox_inches='tight', format='pdf')
         print(f"Light curve figure saved to {output_path}")
-    
+
     return fig
