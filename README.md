@@ -111,7 +111,8 @@ Observed roAp stars plotted against MESA evolutionary tracks (masses 1.5–2.5 M
 
 Power spectrum from Lomb-Scargle periodogram showing significant peaks detected above SNR > 4 threshold (red peaks). For TIC 101624823: dominant frequency at ~403 µHz with SNR = 8.2. Peak spacing is consistent with large frequency separation (~62 µHz), a characteristic parameter in asteroseismology.
 
-[![Periodogram](figures/TIC_101624823_periodogram.png)](figures/TIC_101624823_periodogram.pdf)
+[![Periodogram](figures/TIC_101624823_periodogram.png)](fig
+ures/TIC_101624823_periodogram.pdf)
 
 **[PDF version](figures/TIC_101624823_periodogram.pdf)**
 

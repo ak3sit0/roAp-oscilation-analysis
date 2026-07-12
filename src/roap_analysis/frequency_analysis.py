@@ -54,52 +54,78 @@ def estimate_snr(amplitude, height_factor=5.0):
     return significant_peaks
 
 
-def calculate_large_separation(frequencies, min_separation=0.001):
+def calculate_large_separation(frequencies):
     """
-    Calculate the large frequency separation (Δν).
-    
+    Calculate the large frequency separation (Δν) using autocorrelation.
+
     The large separation is the average frequency difference between consecutive
     modes of the same spherical degree (l) and consecutive radial order (n).
-    This is a fundamental asteroseismic parameter related to mean stellar density.
-    
-    For roAp stars: typically 30-100 µHz or 0.8-2.9 day^-1
-    
+    This fundamental asteroseismic parameter relates directly to mean stellar density.
+
+    Uses autocorrelation of the frequency spectrum for robust estimation (standard
+    method in asteroseismology). For roAp stars: typically 30-100 µHz.
+
     Parameters
     ----------
     frequencies : np.ndarray
-        Array of detected peak frequencies (must be sorted)
-    min_separation : float, optional
-        Minimum frequency separation to consider (in same units as frequencies)
-        
+        Array of detected peak frequencies
+
     Returns
     -------
     delta_nu : float
-        Large frequency separation or NaN if insufficient peaks
-    delta_nu_std : float
-        Standard deviation of separations
+        Large frequency separation from autocorrelation peak
+    delta_nu_err : float
+        Uncertainty in Δν from autocorrelation peak width
     """
-    if len(frequencies) < 2:
-        warnings.warn("Insufficient peaks for Δν calculation. Need at least 2 peaks.")
+    if len(frequencies) < 5:
+        warnings.warn("Insufficient peaks for Δν calculation (need ≥5 peaks).")
         return np.nan, np.nan
-    
-    # Sort frequencies
+
     freq_sorted = np.sort(frequencies)
-    
-    # Calculate consecutive differences
-    separations = np.diff(freq_sorted)
-    
-    # Filter by minimum separation to avoid noise artifacts
-    valid_seps = separations[separations >= min_separation]
-    
-    if len(valid_seps) == 0:
-        warnings.warn("No valid frequency separations found.")
-        return np.nan, np.nan
-    
-    # Calculate statistics
-    delta_nu = np.mean(valid_seps)
-    delta_nu_std = np.std(valid_seps)
-    
-    return delta_nu, delta_nu_std
+
+    # Compute autocorrelation of frequency spectrum
+    from scipy.signal import correlate
+    auto = correlate(freq_sorted, freq_sorted, mode='full')
+    auto = auto / auto.max()  # Normalize
+
+    lags = np.arange(-len(freq_sorted) + 1, len(freq_sorted))
+
+    # Find peaks in positive lag region (where Δν appears as secondary peak)
+    positive_lags_idx = lags > 0
+    auto_positive = auto[positive_lags_idx]
+    lags_positive = lags[positive_lags_idx]
+
+    # Find peaks in autocorrelation
+    peaks_idx, properties = find_peaks(auto_positive, height=0.1, distance=2)
+
+    if len(peaks_idx) < 1:
+        warnings.warn("No autocorrelation peaks found. Using peak spacing fallback.")
+        seps = np.diff(freq_sorted)
+        delta_nu = np.median(seps[seps > 0.001])
+        delta_nu_err = np.std(seps[seps > 0.001])
+        return float(delta_nu), float(delta_nu_err)
+
+    # First secondary peak gives Δν (most robust estimate)
+    delta_nu_idx = peaks_idx[0]
+    delta_nu = float(lags_positive[delta_nu_idx])
+
+    # Error estimation: width of autocorrelation peak at half height
+    peak_height = auto_positive[delta_nu_idx]
+    half_height = peak_height / 2
+    above_half = auto_positive > half_height
+
+    # Find contiguous region around peak
+    diffs = np.diff(above_half.astype(int))
+    starts = np.where(diffs == 1)[0]
+    ends = np.where(diffs == -1)[0]
+
+    if len(starts) > 0 and len(ends) > 0:
+        peak_region = ends[0] - starts[0] if starts[0] < ends[0] else len(above_half)
+        delta_nu_err = float(peak_region / np.sqrt(len(frequencies)))
+    else:
+        delta_nu_err = float(np.std(np.diff(freq_sorted)))
+
+    return float(delta_nu), float(delta_nu_err)
 
 
 def periodogram_analysis(lightcurve, method='lombscargle', oversample_factor=5):
@@ -149,48 +175,3 @@ def periodogram_analysis(lightcurve, method='lombscargle', oversample_factor=5):
         snr_values = np.array([])
     
     return pg, peaks, snr_values
-
-
-def identify_mode_spectrum(frequencies, amplitudes, delta_nu_range=(0.02, 0.3)):
-    """
-    Identify the mode spectrum by grouping peaks into families.
-    
-    Advanced feature: attempts to identify l=0,1,2 modes based on large separation.
-    
-    Parameters
-    ----------
-    frequencies : np.ndarray
-        Peak frequencies
-    amplitudes : np.ndarray
-        Peak amplitudes
-    delta_nu_range : tuple, optional
-        Expected range for large separation (in same units as frequencies)
-        
-    Returns
-    -------
-    mode_dict : dict
-        Dictionary with potential l values and corresponding mode frequencies
-    """
-    if len(frequencies) < 3:
-        warnings.warn("Insufficient peaks for mode identification.")
-        return {}
-    
-    freq_sorted = np.sort(frequencies)
-    seps = np.diff(freq_sorted)
-    
-    # Find most common separation in the expected range
-    valid_seps = seps[(seps >= delta_nu_range[0]) & (seps <= delta_nu_range[1])]
-    
-    if len(valid_seps) == 0:
-        return {}
-    
-    # Use histogram to find peak separation
-    hist, bin_edges = np.histogram(valid_seps, bins=10)
-    delta_nu_est = bin_edges[np.argmax(hist)]
-    
-    # Group modes
-    modes = {'l=0': [], 'l=1': [], 'l=2': []}
-    for i, f in enumerate(freq_sorted):
-        modes['l=0'].append(f)  # Simplified grouping
-    
-    return modes
