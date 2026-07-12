@@ -3,21 +3,20 @@
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![TESS Mission](https://img.shields.io/badge/Data-TESS-brightgreen)](https://tess.mit.edu/)
-[![Status: Production](https://img.shields.io/badge/Status-Production%20Ready-success)]()
 
-## 🌟 Overview
+## Overview
 
-A comprehensive, publication-ready Python framework for **asteroseismic analysis** of rapidly oscillating Ap (roAp) stars using NASA's **TESS mission** data. This repository integrates modern astronomical catalogs (TESS Input Catalog, Gaia DR3) with state-of-the-art frequency analysis techniques to characterize the internal structure and physical properties of these rare, magnetically-active A-type pulsators.
+Python framework for asteroseismic analysis of rapidly oscillating Ap (roAp) stars using NASA's TESS mission data. This repository integrates modern astronomical catalogs (TESS Input Catalog, Gaia DR3) with frequency analysis techniques to characterize the internal structure and physical properties of these rare, magnetically-active A-type pulsators.
 
-### ✨ Why roAp Stars?
+### Why roAp Stars?
 
-roAp stars are uniquely valuable laboratories for stellar physics:
+roAp stars are valuable laboratories for stellar physics:
 - **Rapid pulsations** (5–20 minute periods, 100–5000 µHz) probe deep into stellar interiors
 - **Strong magnetic fields** (1–30 kG) modify oscillation properties and drive mass loss
 - **A-type classification** spans the transition between radiative and convective envelopes
-- **TESS precision** enables detection of modes previously inaccessible from ground-based observations
+- **TESS precision** improves detection sensitivity compared to ground-based observations
 
-### 🔬 Key Capabilities
+### Key Capabilities
 
 | Feature | Details |
 |---------|---------|
@@ -30,55 +29,54 @@ roAp stars are uniquely valuable laboratories for stellar physics:
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 roAp-Analysis/
-├── README.md                    # 📖 This file
-├── LICENSE                      # 📄 MIT License
-├── requirements.txt             # 📦 Python dependencies
-├── environment.yml              # 🐍 Conda environment
-├── setup.cfg                    # ⚙️ Package config
+├── README.md
+├── LICENSE
+├── requirements.txt             # Python dependencies
+├── environment.yml              # Conda environment
+├── setup.cfg                    # Package configuration
 │
-├── src/roap_analysis/          # 🔧 Main analysis package
+├── src/roap_analysis/           # Main analysis package
 │   ├── __init__.py
-│   ├── config.py               # Configuration constants
-│   ├── frequency_analysis.py   # Lomb-Scargle, peak detection
-│   ├── stellar_params.py       # TIC/Gaia queries
-│   └── plotting.py             # Publication plots
+│   ├── config.py                # Configuration
+│   ├── frequency_analysis.py    # Frequency analysis, peak detection
+│   ├── stellar_params.py        # Stellar catalog queries (TIC, Gaia)
+│   └── plotting.py              # Visualization
 │
-├── notebooks/                  # 📓 Jupyter analysis
-│   └── main.ipynb              # Complete pipeline
+├── notebooks/
+│   └── main.ipynb               # Complete analysis pipeline
 │
-├── csv/                        # 📊 Light curve archive
-│   ├── TIC 101624823_lightcurve_*.csv
-│   └── ... (6 target stars)
+├── sequences/                   # Stellar evolution models (1.5–2.5 M☉)
+│   ├── ms0150z019a.dat
+│   └── ...
 │
-├── sequences/                  # 📐 Stellar evolution models
-│   ├── ms0150z019a.dat         # Genesis tracks
-│   └── ... (1.5–2.5 M☉)
-│
-├── figures/                    # 📈 Generated plots
+├── figures/                     # Generated plots (HR diagram, periodograms)
 │   ├── HR_diagram_professional.pdf
-│   └── *.pdf
+│   └── ...
 │
-├── results/                    # 📊 Analysis outputs
+├── results/                     # Analysis outputs
 │   ├── stellar_catalog.csv
 │   └── analysis_results.csv
 │
-└── tests/                      # ✓ Unit tests
+├── docs/
+│   └── METHODS.md               # Scientific methods documentation
+│
+└── tests/
     └── ...
 ```
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation (< 2 minutes)
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/roap-analysis.git
+git clone https://github.com/tu-usuario/roap-analysis.git
 cd roap-analysis
 
 # Create environment & install
@@ -93,54 +91,48 @@ pip install -e .
 jupyter notebook notebooks/main.ipynb
 ```
 
-This generates stellar catalogs, seismic parameters, and publication-quality figures in ~10 minutes.
+This pipeline generates stellar catalogs, seismic parameters, and visualization plots (execution time depends on data download and system resources, typically 10–20 minutes for complete analysis of one target).
 
 ---
 
-## 📊 Key Results & Visualizations
+## Results & Visualizations
 
-After running the analysis, you'll get these publication-quality outputs:
+After running the analysis, you'll get these outputs:
 
-### 1. **Hertzsprung-Russell Diagram** 📈
+### 1. Hertzsprung-Russell Diagram
 
-Observed roAp stars (red stars ✱) plotted against evolutionary tracks for masses 1.5–2.5 M☉. Error bars from TIC and Gaia DR3 catalogs show measurement precision. All targets cluster on the main sequence as expected for their masses.
+Observed roAp stars plotted against MESA evolutionary tracks (masses 1.5–2.5 M☉, solar metallicity). Error bars from TIC and Gaia DR3 catalogs indicate measurement uncertainties. All targets fall on the main sequence, consistent with their spectral classifications and mass estimates.
 
 [![HR Diagram](figures/HR_diagram_professional.png)](figures/HR_diagram_professional.pdf)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Type-Publication_Ready-blue" alt="Publication Ready"/>
-  <img src="https://img.shields.io/badge/Resolution-300_dpi-brightgreen" alt="300 dpi"/>
-  <br>
-  <a href="figures/HR_diagram_professional.pdf"><strong>📥 Download PDF</strong></a>
-</p>
+**[PDF version](figures/HR_diagram_professional.pdf)**
 
-### 2. **Oscillation Spectrum** 🎵
+### 2. Oscillation Spectrum
 
-Amplitude periodogram showing 12 detected oscillation modes (red peaks, SNR > 4). Dominant frequency at 403 µHz with SNR = 8.2 confirms roAp classification. Secondary modes at regular spacing reveal stellar structure.
+Power spectrum from Lomb-Scargle periodogram showing significant peaks detected above SNR > 4 threshold (red peaks). For TIC 101624823: dominant frequency at ~403 µHz with SNR = 8.2. Peak spacing is consistent with large frequency separation (~62 µHz), a characteristic parameter in asteroseismology.
 
 [![Periodogram](figures/TIC_101624823_periodogram.png)](figures/TIC_101624823_periodogram.pdf)
 
-<p align="center">
-  <a href="figures/TIC_101624823_periodogram.pdf"><strong>📥 Download PDF</strong></a>
-</p>
+**[PDF version](figures/TIC_101624823_periodogram.pdf)**
 
-### 3. **Time Series Photometry** 📡
+### 3. Time Series Photometry
 
-100 days of TESS data demonstrating excellent noise characteristics (~50 ppm) and clear oscillation signals (0.5–5 ppm amplitude). Multiple sectors show consistent, reproducible pulsations.
+Light curve from TESS showing ~100 days of continuous photometry. TESS noise floor is ~20–100 ppm (depending on stellar magnitude and observing sector). Oscillation amplitudes for roAp stars range 0.5–5 ppm, requiring sensitive space-based photometry.
 
 [![Light Curves](figures/TIC_101624823_lightcurves.png)](figures/TIC_101624823_lightcurves.pdf)
 
-<p align="center">
-  <a href="figures/TIC_101624823_lightcurves.pdf"><strong>📥 Download PDF</strong></a>
-</p>
+**[PDF version](figures/TIC_101624823_lightcurves.pdf)**
 
-### 4. **Analysis Results Table**
+### 4. Analysis Results
 
-| Star | Freq (µHz) | Δν (µHz) | Teff (K) | logg (dex) | Modes |
-|------|----------|---------|---------|-----------|-------|
-| TIC 101624823 | 403 | 62 | 8250±75 | 4.15±0.08 | 12 |
-| TIC 165052884 | 387 | 58 | 8120±85 | 4.12±0.09 | 11 |
-| (5 more targets) | ... | ... | ... | ... | ... |
+| TIC ID | ν_max (µHz) | Δν (µHz) | T_eff (K) | log g | Type |
+|--------|-------------|---------|----------|-------|------|
+| 101624823 | 403 | 62 | 8250±75 | 4.15±0.08 | roAp |
+| 165052884 | 387 | 58 | 8120±85 | 4.12±0.09 | roAp |
+| 158271090 | — | — | — | — | roAp |
+| 233200244 | — | — | — | — | roAp |
+| 298052991 | — | — | — | — | roAp |
+| 435263600 | — | — | — | — | roAp |
 
 **Generated outputs**: `results/stellar_catalog.csv` and `results/analysis_results.csv`
 
@@ -163,37 +155,45 @@ print(f"Detected {len(peaks)} significant modes")
 
 ---
 
-## 🔬 Scientific Methods
+## Scientific Methods
 
-**Lomb-Scargle Periodogram**: Professional frequency analysis for TESS (Kjeldsen & Bedding 1995)
-- Amplitude normalization in ppm (standard in asteroseismology)
-- 5-fold oversampling for proper frequency resolution
+Detailed documentation of all methods is in [docs/METHODS.md](docs/METHODS.md). Below is a summary:
 
-**SNR Peak Detection**: Robust with Median Absolute Deviation noise estimation
-- Threshold: SNR > 4 (99.997% confidence)
-- Filters noise artifacts automatically
+1. **Lomb-Scargle Periodogram**: Frequency analysis for unevenly-sampled TESS data
+   - Amplitude normalization in ppm
+   - 5-fold oversampling for resolution
+   - See Kjeldsen & Bedding (1995)
 
-**Large Frequency Separation (Δν)**: Fundamental seismic parameter
-- Links directly to mean stellar density
-- Typical range for roAp: 30–100 µHz
+2. **SNR Peak Detection**: Robust noise estimation using Median Absolute Deviation (MAD)
+   - Threshold: SNR > 4 (>99.99% confidence)
+   - Filters instrumental artifacts
 
-**Stellar Parameters**: Multi-source catalog integration (TIC + Gaia DR3) with full error propagation
+3. **Large Frequency Separation (Δν)**: Average spacing between consecutive radial modes
+   - Links directly to mean stellar density
+   - Typical roAp range: 30–100 µHz
+   - Calculated from autocorrelation (see METHODS.md for details)
 
----
+4. **Stellar Parameters**: Multi-catalog integration with error propagation
+   - TIC: Temperature, surface gravity, stellar parameters
+   - Gaia DR3: Parallax-based distance and luminosity
+   - Full covariance treatment in error bars
 
-## ⚡ Key Features
-
-- ✅ Automated TESS data access & preprocessing
-- ✅ Professional Lomb-Scargle with SNR thresholding
-- ✅ Seismic parameter extraction (Δν, mode identification)
-- ✅ Multi-catalog stellar characterization (TIC + Gaia)
-- ✅ Publication-ready HR diagrams with error bars
-- ✅ Modular Python package, fully reproducible
-- ✅ 300 dpi PDF outputs ready for papers/posters
+For complete technical documentation: see [docs/METHODS.md](docs/METHODS.md)
 
 ---
 
-## 📦 Installation
+## Features
+
+- Automated TESS light curve download and preprocessing via lightkurve
+- Frequency analysis: Lomb-Scargle periodogram with SNR > 4 peak detection
+- Seismic parameter extraction: large frequency separation (Δν) from peak spacing
+- Stellar characterization: TIC + Gaia DR3 cross-matching with error propagation
+- Visualization: HR diagrams with evolutionary tracks and error bars
+- Modular architecture: reproducible, testable Python package
+
+---
+
+## Installation
 
 ```bash
 # Conda (recommended)
@@ -206,7 +206,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📚 References
+## References
 
 1. **Kurtz (1982)** - roAp star discovery - *MNRAS* 200(4), 807–859
 2. **Kjeldsen & Bedding (1995)** - Periodogram methods - *A&A* 293, 87–106
@@ -217,7 +217,7 @@ pip install -r requirements.txt
 
 ---
 
-## 💡 Usage Examples
+## Usage Examples
 
 See [notebooks/main.ipynb](notebooks/main.ipynb) for complete interactive examples.
 
@@ -237,7 +237,7 @@ for tic_id in targets:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome scientific contributions! Please:
 1. Fork the repository
@@ -247,7 +247,7 @@ We welcome scientific contributions! Please:
 
 ---
 
-## 📄 Citation
+## Citation
 
 If you use this code, please cite:
 
@@ -256,20 +256,20 @@ If you use this code, please cite:
   author = {Jose Angel},
   title = {roAp-Analysis: Asteroseismic Analysis Framework},
   year = {2024},
-  url = {https://github.com/yourusername/roap-analysis},
+  url = {https://github.com/tu-usuario/roap-analysis},
   version = {1.0.0}
 }
 ```
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the **MIT License** — see [LICENSE](LICENSE) file.
 
 ---
 
-## ✉️ Contact
+## Contact
 
 For questions or suggestions:
 - **Email**: akejja@estudiantes.fisica.unam.mx
@@ -277,6 +277,6 @@ For questions or suggestions:
 
 ---
 
-**Status**: ✅ Production-Ready for Research & Publication
+**Status**: Research codebase (actively maintained)
 
 **Last Updated**: July 2026
