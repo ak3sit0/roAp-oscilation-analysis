@@ -117,6 +117,8 @@ $$\Delta\nu \approx \left(\frac{M}{M_\odot}\right)^{1/2} \left(\frac{R}{R_\odot}
 
 #### Gaia DR3 Cross-Matching
 
+> ⚠️ **Status: experimental.** The current cross-match (`_query_gaia_parallax` in `stellar_params.py`) resolves targets by a `designation LIKE` string match, which does not reliably map a TIC ID to its Gaia DR3 source. As a result, parallaxes/luminosities are not yet populated in the published catalog, and the stellar parameters used throughout are TIC-only. A robust TIC→Gaia DR3 cross-match is on the [roadmap](../README.md#roadmap). The formulae below document the intended method.
+
 **Purpose**: Improve luminosity and distance determinations
 
 **Parameters from parallax**:

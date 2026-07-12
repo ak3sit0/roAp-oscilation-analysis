@@ -10,7 +10,15 @@ from scipy.signal import find_peaks
 from scipy.stats import median_abs_deviation
 import warnings
 
-from .config import SNR_THRESHOLD, ROAP_FREQ_RANGE_UHHZ
+from .config import SNR_THRESHOLD, ROAP_FREQ_RANGE_UHHZ, D1_TO_UHZ
+
+
+def to_microhertz(freq_per_day):
+    """Convert a frequency (or array) from cycles/day (d⁻¹) to microhertz (µHz).
+
+    1 cycle/day = 1/86400 Hz = 11.57407 µHz.
+    """
+    return np.asarray(freq_per_day) * D1_TO_UHZ
 
 
 def estimate_snr(amplitude, height_factor=5.0):

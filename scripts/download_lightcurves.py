@@ -63,8 +63,8 @@ def download_lightcurves():
 
 
 def verify_evolutionary_models():
-    """Verify MESA evolutionary models are present (checked in git)."""
-    model_dir = Path("data/evolutionary_models")
+    """Verify MESA evolutionary models are present (version-controlled in sequences/)."""
+    model_dir = Path("sequences")
     models = list(model_dir.glob("*.dat"))
 
     if models:
@@ -85,9 +85,8 @@ def main():
     print("╚═══════════════════════════════════════════════════════════════╝")
     print()
 
-    # Create directories
+    # Create data directory (evolutionary tracks are already version-controlled in sequences/)
     Path("data/lightcurves").mkdir(parents=True, exist_ok=True)
-    Path("data/evolutionary_models").mkdir(parents=True, exist_ok=True)
 
     # Download light curves
     download_lightcurves()

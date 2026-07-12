@@ -12,7 +12,12 @@ References:
 __version__ = "1.0.0"
 __author__ = "José Ake"
 
-from .frequency_analysis import estimate_snr, calculate_large_separation, periodogram_analysis
+from .frequency_analysis import (
+    estimate_snr,
+    calculate_large_separation,
+    periodogram_analysis,
+    to_microhertz,
+)
 from .stellar_params import get_star_params_professional
 from .plotting import plot_periodogram, plot_hr_diagram
 
@@ -20,6 +25,7 @@ __all__ = [
     'estimate_snr',
     'calculate_large_separation',
     'periodogram_analysis',
+    'to_microhertz',
     'get_star_params_professional',
     'plot_periodogram',
     'plot_hr_diagram',
