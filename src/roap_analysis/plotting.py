@@ -18,11 +18,11 @@ def set_publication_style():
     plt.rcParams['font.size'] = 11
     plt.rcParams['font.family'] = 'sans-serif'
     plt.rcParams['figure.figsize'] = (10, 8)
-    plt.rcParams['axes.labelsize'] = 12
-    plt.rcParams['axes.titlesize'] = 13
-    plt.rcParams['xtick.labelsize'] = 10
-    plt.rcParams['ytick.labelsize'] = 10
-    plt.rcParams['legend.fontsize'] = 10
+    plt.rcParams['axes.labelsize'] = 13
+    plt.rcParams['axes.titlesize'] = 14
+    plt.rcParams['xtick.labelsize'] = 11
+    plt.rcParams['ytick.labelsize'] = 11
+    plt.rcParams['legend.fontsize'] = 11
     plt.rcParams['lines.linewidth'] = 1.5
     plt.rcParams['patch.linewidth'] = 0.5
     plt.rcParams['axes.grid'] = True
@@ -149,8 +149,8 @@ def plot_hr_diagram(teff_list, logg_list, e_teff=None, e_logg=None,
             e_logg = np.ones_like(logg_list) * 0.05  # Default error
         
         ax.errorbar(teff_list, logg_list, xerr=e_teff, yerr=e_logg,
-                   fmt='*', markersize=15, color=TEFF_COLOR, 
-                   ecolor='black', elinewidth=1.5, capsize=4,
+                   fmt='*', markersize=15, color=TEFF_COLOR,
+                   ecolor=TEFF_COLOR, elinewidth=1.5, capsize=4,
                    label='roAp Stars (TESS)', zorder=5)
         
         # Annotate with TIC IDs if provided
