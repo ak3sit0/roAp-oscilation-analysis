@@ -45,7 +45,7 @@ SNR_THRESHOLD = 4.0
 LOMBSCARGLE_OVERSAMPLE = 5
 AMPLITUDE_NORMALIZATION = 'amplitude'  # Return amplitudes in ppm
 
-# HR Diagram parameters
-TEFF_COLOR = "#E74C3C"  # Red
-TRACK_COLOR = "#34495E" # Dark gray
-TRACK_ALPHA = 0.4
+# HR Diagram parameters (Nature-style)
+TEFF_COLOR = "#2E86AB"  # Professional blue
+TRACK_COLOR = "#9CA3AF" # Soft gray
+TRACK_ALPHA = 0.35

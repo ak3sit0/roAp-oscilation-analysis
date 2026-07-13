@@ -18,15 +18,15 @@ def set_publication_style():
     plt.rcParams['font.size'] = 11
     plt.rcParams['font.family'] = 'sans-serif'
     plt.rcParams['figure.figsize'] = (10, 8)
-    plt.rcParams['axes.labelsize'] = 12
-    plt.rcParams['axes.titlesize'] = 13
-    plt.rcParams['xtick.labelsize'] = 10
-    plt.rcParams['ytick.labelsize'] = 10
-    plt.rcParams['legend.fontsize'] = 10
+    plt.rcParams['axes.labelsize'] = 14
+    plt.rcParams['axes.titlesize'] = 15
+    plt.rcParams['xtick.labelsize'] = 12
+    plt.rcParams['ytick.labelsize'] = 12
+    plt.rcParams['legend.fontsize'] = 11
     plt.rcParams['lines.linewidth'] = 1.5
     plt.rcParams['patch.linewidth'] = 0.5
     plt.rcParams['axes.grid'] = True
-    plt.rcParams['grid.alpha'] = 0.3
+    plt.rcParams['grid.alpha'] = 0.15
     plt.rcParams['axes.axisbelow'] = True
 
 
@@ -65,30 +65,30 @@ def plot_periodogram(lightcurve, periodogram, peaks_idx=None,
     if amplitude_ppm is None:
         amplitude_ppm = periodogram.power.value * 1e6
     
-    ax.plot(frequencies, amplitude_ppm, 'k-', linewidth=0.8, label='Amplitude Spectrum')
-    
+    ax.plot(frequencies, amplitude_ppm, 'k-', linewidth=0.7, label='Amplitude spectrum')
+
     # Mark significant peaks
     if peaks_idx is not None and len(peaks_idx) > 0:
         peak_freqs = frequencies[peaks_idx]
         peak_amps = amplitude_ppm[peaks_idx]
-        
-        ax.scatter(peak_freqs, peak_amps, color=TEFF_COLOR, s=80, 
-                  zorder=5, label=f'Peaks (N={len(peaks_idx)})', marker='*')
-        
+
+        ax.scatter(peak_freqs, peak_amps, color=TEFF_COLOR, s=100,
+                  zorder=5, label=f'Detected peaks (N={len(peaks_idx)})', marker='*', edgecolors='none')
+
         # Annotate dominant peak
         dom_idx = np.argmax(peak_amps)
         ax.annotate(f'{peak_freqs[dom_idx]:.2f} d$^{{-1}}$',
                    xy=(peak_freqs[dom_idx], peak_amps[dom_idx]),
                    xytext=(10, 10), textcoords='offset points',
-                   bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.7),
-                   arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
-    
-    ax.set_xlabel('Frequency (d$^{-1}$)')
-    ax.set_ylabel('Amplitude (ppm)')
+                   bbox=dict(boxstyle='round,pad=0.4', fc='lightgray', alpha=0.8, edgecolor='none'),
+                   arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0', lw=0.8))
+
+    ax.set_xlabel('Frequency (d$^{-1}$)', fontsize=12)
+    ax.set_ylabel('Amplitude (ppm)', fontsize=12)
     if title:
-        ax.set_title(title)
-    ax.legend(loc='upper right', framealpha=0.9)
-    ax.grid(True, alpha=0.3)
+        ax.set_title(title, fontsize=13)
+    ax.legend(loc='upper right', framealpha=0.9, edgecolor='none', fancybox=False)
+    ax.grid(True, alpha=0.15, linewidth=0.5)
     
     return ax
 
@@ -147,27 +147,27 @@ def plot_hr_diagram(teff_list, logg_list, e_teff=None, e_logg=None,
             e_teff = np.ones_like(teff_list) * 50  # Default error
         if e_logg is None:
             e_logg = np.ones_like(logg_list) * 0.05  # Default error
-        
+
         ax.errorbar(teff_list, logg_list, xerr=e_teff, yerr=e_logg,
-                   fmt='*', markersize=15, color=TEFF_COLOR, 
-                   ecolor='black', elinewidth=1.5, capsize=4,
-                   label='roAp Stars (TESS)', zorder=5)
-        
+                   fmt='*', markersize=22, color=TEFF_COLOR,
+                   ecolor='black', elinewidth=1.2, capsize=5,
+                   label='Observed roAp stars', zorder=5)
+
         # Annotate with TIC IDs if provided
         if tic_ids and len(tic_ids) == len(teff_list):
             for i, (t, g, tic) in enumerate(zip(teff_list, logg_list, tic_ids)):
                 tic_num = tic.replace("TIC ", "")
                 ax.annotate(tic_num, xy=(t, g), xytext=(5, 5),
-                           textcoords='offset points', fontsize=7, alpha=0.6)
+                           textcoords='offset points', fontsize=8, alpha=0.5)
     
     # Formatting
     ax.invert_xaxis()
     ax.invert_yaxis()
-    ax.set_xlabel(r'Effective Temperature $T_{\mathrm{eff}}$ (K)', fontsize=12)
-    ax.set_ylabel(r'Surface Gravity $\log g$ (dex)', fontsize=12)
-    ax.set_title('Hertzsprung-Russell Diagram: roAp Stars from TESS', fontsize=13)
-    ax.legend(loc='upper right', fontsize=11, framealpha=0.95)
-    ax.grid(True, alpha=0.4, linestyle='--')
+    ax.set_xlabel(r'Effective Temperature $T_{\mathrm{eff}}$ (K)', fontsize=14)
+    ax.set_ylabel(r'Surface Gravity $\log g$ (dex)', fontsize=14)
+    ax.set_title('Hertzsprung-Russell Diagram: roAp Stars from TESS', fontsize=15, pad=15)
+    ax.legend(loc='lower left', fontsize=11, framealpha=0.92, edgecolor='black', fancybox=False)
+    ax.grid(True, alpha=0.15, linestyle='-', linewidth=0.5)
     
     # Add ZAMS and TAMS annotations if applicable
     ax.text(0.98, 0.02, 'Main Sequence', transform=ax.transAxes,
@@ -211,13 +211,13 @@ def plot_light_curves(lightcurves, tic_id, output_file=None):
     
     for i, lc in enumerate(lightcurves):
         ax = axes[i]
-        lc.plot(ax=ax, color='navy', linewidth=0.7)
-        ax.set_ylabel('Normalized Flux')
-        ax.grid(True, alpha=0.3)
-        ax.set_title(f'{tic_id} - Sector {i+1}')
-    
-    axes[-1].set_xlabel('Time (days)')
-    fig.suptitle(f'Light Curves: {tic_id}', fontsize=13, y=1.00)
+        lc.plot(ax=ax, color='#2E86AB', linewidth=0.8)
+        ax.set_ylabel('Flux (norm.)', fontsize=12)
+        ax.grid(True, alpha=0.15, linewidth=0.5)
+        ax.set_title(f'Sector {i+1}', fontsize=12, loc='left')
+
+    axes[-1].set_xlabel('Time (days)', fontsize=12)
+    fig.suptitle(f'Light Curves: {tic_id}', fontsize=14, y=0.995)
     plt.tight_layout()
     
     if output_file:
