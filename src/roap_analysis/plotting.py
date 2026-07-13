@@ -134,7 +134,7 @@ def plot_hr_diagram(teff_list, logg_list, e_teff=None, e_logg=None,
 
             if np.any(valid):
                 ax.plot(teff_track[valid], logg_track[valid],
-                       color=TRACK_COLOR, alpha=0.2, linewidth=1.0)
+                       color=TRACK_COLOR, alpha=TRACK_ALPHA, linewidth=1.2)
                 
                 # Label the track
                 idx = np.where(valid)[0][0]
@@ -149,8 +149,8 @@ def plot_hr_diagram(teff_list, logg_list, e_teff=None, e_logg=None,
             e_logg = np.ones_like(logg_list) * 0.05  # Default error
 
         ax.errorbar(teff_list, logg_list, xerr=e_teff, yerr=e_logg,
-                   fmt='o', markersize=16, color=TEFF_COLOR,
-                   ecolor=TEFF_COLOR, elinewidth=0.8, capsize=0,
+                   fmt='*', markersize=20, color=TEFF_COLOR,
+                   ecolor=TEFF_COLOR, elinewidth=0.9, capsize=3,
                    label='Observed roAp stars', zorder=5)
 
         # Annotate with TIC IDs if provided
@@ -163,16 +163,11 @@ def plot_hr_diagram(teff_list, logg_list, e_teff=None, e_logg=None,
     # Formatting
     ax.invert_xaxis()
     ax.invert_yaxis()
-    ax.set_facecolor('white')
     ax.set_xlabel(r'Effective Temperature $T_{\mathrm{eff}}$ (K)', fontsize=14)
     ax.set_ylabel(r'Surface Gravity $\log g$ (dex)', fontsize=14)
     ax.set_title('Hertzsprung-Russell Diagram: roAp Stars from TESS', fontsize=15, pad=15)
-    ax.legend(loc='lower left', fontsize=11, framealpha=0.92, edgecolor='none', fancybox=False)
-    ax.grid(False)
-
-    # Panel label (Nature-style)
-    ax.text(0.02, 0.98, 'A', transform=ax.transAxes,
-           fontsize=18, fontweight='bold', va='top', ha='left')
+    ax.legend(loc='lower left', fontsize=11, framealpha=0.92, edgecolor='black', fancybox=False)
+    ax.grid(True, alpha=0.15, linestyle='-', linewidth=0.5)
     
     # Add ZAMS and TAMS annotations if applicable
     ax.text(0.98, 0.02, 'Main Sequence', transform=ax.transAxes,
