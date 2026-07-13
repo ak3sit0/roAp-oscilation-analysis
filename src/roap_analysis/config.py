@@ -26,6 +26,7 @@ TRACK_METALLICITY = "z019"  # Z ≈ 0.019, solar metallicity
 # roAp frequency ranges (in µHz and 1/days)
 ROAP_FREQ_RANGE_UHHZ = (100, 5000)  # typical range in microhertz
 ROAP_FREQ_RANGE_D1 = (0.001, 0.057)  # typical range in 1/days
+D1_TO_UHZ = 1e6 / 86400.0  # ≈ 11.57407 µHz per (day⁻¹)
 
 # SNR threshold for significant peaks
 SNR_THRESHOLD = 4.0
